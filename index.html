@@ -210,10 +210,10 @@ body{font-family:'Pretendard',sans-serif;background:var(--bg);color:var(--ink);m
   </div>
   <div class="form-section">
     <label class="form-label">Photo</label>
-    <div class="upload-area" id="upload-area" onclick="uploadAreaClick()">
+    <label class="upload-area" id="upload-area" for="photo-input">
       <div class="upload-icon">📸</div>
       <div class="upload-text">탭하여 사진 선택</div>
-    </div>
+    </label>
     <input type="file" id="photo-input" accept="image/*" style="display:none" onchange="onPhotoSelect(this)">
     <input type="hidden" id="photo-data">
   </div>
@@ -374,10 +374,6 @@ function switchTab(t,btn){
   if(t==='calendar') renderCalendar();
   if(t==='setup'){renderGasCode();initSetup();}
 }
-function uploadAreaClick(){
-  document.getElementById('photo-input').click();
-}
-
 function onPhotoSelect(input){
   const file=input.files[0];if(!file)return;
   const reader=new FileReader();
@@ -388,6 +384,7 @@ function onPhotoSelect(input){
     area.classList.add('has-img');
     area.innerHTML=`<img src="${data}" class="upload-preview">`;
     toast('사진이 적용되었어요 ✓');
+    input.value='';
   };
   reader.readAsDataURL(file);
 }
